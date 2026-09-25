@@ -3,6 +3,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { GraduationCap, LogOut, MapPin, Sparkles } from "lucide-react";
 
 import { AvatarPreview } from "@/components/AvatarPreview";
+import { MyTeam } from "@/components/MyTeam";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -99,6 +100,8 @@ function ProfilePage() {
           </p>
         </div>
       </div>
+
+      <MyTeam />
 
       <h2 className="mt-8 mb-3 font-display text-lg font-bold">Recent activity</h2>
       {ledger.length === 0 ? (
