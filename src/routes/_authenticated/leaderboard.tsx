@@ -9,10 +9,10 @@ import { useActiveSeason, useIsAdmin, useSeasonScores, type OrgScore } from "@/h
 export const Route = createFileRoute("/_authenticated/leaderboard")({
   head: () => ({
     meta: [
-      { title: "Season Leaderboard — Bearings" },
-      { name: "description", content: "See which Berkeley student orgs lead the current Bearings season." },
-      { property: "og:title", content: "Season Leaderboard — Bearings" },
-      { property: "og:description", content: "See which Berkeley student orgs lead the current Bearings season." },
+      { title: "Semester Leaderboard — Bearings" },
+      { name: "description", content: "See which Berkeley student orgs lead the current Bearings semester." },
+      { property: "og:title", content: "Semester Leaderboard — Bearings" },
+      { property: "og:description", content: "See which Berkeley student orgs lead the current Bearings semester." },
     ],
   }),
   component: LeaderboardPage,
@@ -48,7 +48,7 @@ function LeaderboardPage() {
 
   if (isLoading) return null;
   if (!season)
-    return <p className="mx-auto max-w-md p-6 text-center text-muted-foreground">No active season right now.</p>;
+    return <p className="mx-auto max-w-md p-6 text-center text-muted-foreground">No active semester right now.</p>;
 
   const frozen = new Date() >= new Date(season.leaderboard_freeze_at);
   const hideChanges = frozen && !isAdmin;
@@ -57,7 +57,7 @@ function LeaderboardPage() {
   return (
     <div className="mx-auto max-w-md space-y-5 px-5 py-6 pb-28">
       <div className="surface-card sun-wash p-5 text-center">
-        <p className="text-xs font-bold tracking-wide text-muted-foreground uppercase">Current season</p>
+        <p className="text-xs font-bold tracking-wide text-muted-foreground uppercase">Current semester</p>
         <h1 className="font-display text-2xl font-extrabold text-primary">{season.name}</h1>
         <p className="mt-1 font-display text-lg font-bold tabular-nums">{countdown} left</p>
       </div>

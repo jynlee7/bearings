@@ -103,7 +103,7 @@ function ManagePage() {
       <section>
         <h2 className="mb-2 font-display text-lg font-bold">Top contributors {season ? `· ${season.name}` : ""}</h2>
         <ol className="surface-card divide-y divide-border">
-          {top.length === 0 && <li className="p-4 text-sm text-muted-foreground">Nobody on the season team yet.</li>}
+          {top.length === 0 && <li className="p-4 text-sm text-muted-foreground">Nobody on the semester team yet.</li>}
           {top.map((t, i) => (
             <li key={t.user_id} className="flex justify-between p-3 text-sm">
               <span>{i + 1}. {t.display_name}</span>

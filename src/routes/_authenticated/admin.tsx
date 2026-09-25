@@ -14,9 +14,9 @@ export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({
     meta: [
       { title: "Admin — Bearings" },
-      { name: "description", content: "Approve student orgs and manage Bearings seasons." },
+      { name: "description", content: "Approve student orgs and manage Bearings semesters." },
       { property: "og:title", content: "Admin — Bearings" },
-      { property: "og:description", content: "Approve student orgs and manage Bearings seasons." },
+      { property: "og:description", content: "Approve student orgs and manage Bearings semesters." },
     ],
   }),
   component: AdminPage,
@@ -67,7 +67,7 @@ function AdminPage() {
 
   async function createSeason(e: React.FormEvent) {
     e.preventDefault();
-    if (!form.name.trim()) return toast.error("Give the season a name.");
+    if (!form.name.trim()) return toast.error("Give the semester a name.");
     const iso = (v: string) => new Date(v).toISOString();
     const { error } = await supabase.from("seasons").insert({
       name: form.name.trim(),
@@ -78,7 +78,7 @@ function AdminPage() {
       is_active: false,
     });
     if (error) return toast.error(error.message);
-    toast.success("Season created.");
+    toast.success("Semester created.");
     setForm({ ...form, name: "" });
     refresh();
   }
@@ -123,7 +123,7 @@ function AdminPage() {
       </section>
 
       <section>
-        <h2 className="mb-2 font-display text-lg font-bold">Seasons</h2>
+        <h2 className="mb-2 font-display text-lg font-bold">Semesters</h2>
         <ul className="space-y-2">
           {seasons.map((s) => (
             <li key={s.id} className="surface-card space-y-1 p-4 text-sm">
@@ -141,15 +141,15 @@ function AdminPage() {
           ))}
         </ul>
         <form onSubmit={createSeason} className="surface-card mt-3 space-y-2 p-4 text-sm">
-          <p className="font-bold">New season</p>
-          <Input placeholder="Season name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
+          <p className="font-bold">New semester</p>
+          <Input placeholder="Semester name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
           {(["starts_at", "ends_at", "team_lock_at", "leaderboard_freeze_at"] as const).map((k) => (
             <label key={k} className="block">
               <span className="text-xs text-muted-foreground">{k.replace(/_/g, " ")}</span>
               <Input type="datetime-local" value={form[k]} onChange={(e) => setForm({ ...form, [k]: e.target.value })} />
             </label>
           ))}
-          <Button className="w-full">Create season</Button>
+          <Button className="w-full">Create semester</Button>
         </form>
       </section>
     </div>

@@ -15,9 +15,9 @@ export const Route = createFileRoute("/_authenticated/orgs/new")({
   head: () => ({
     meta: [
       { title: "Create an Org — Bearings" },
-      { name: "description", content: "Register your student organization for the Bearings season." },
+      { name: "description", content: "Register your student organization for the Bearings semester." },
       { property: "og:title", content: "Create an Org — Bearings" },
-      { property: "og:description", content: "Register your student organization for the Bearings season." },
+      { property: "og:description", content: "Register your student organization for the Bearings semester." },
     ],
   }),
   component: NewOrgPage,

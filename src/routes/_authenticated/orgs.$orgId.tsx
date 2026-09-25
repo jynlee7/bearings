@@ -13,9 +13,9 @@ export const Route = createFileRoute("/_authenticated/orgs/$orgId")({
   head: () => ({
     meta: [
       { title: "Org — Bearings" },
-      { name: "description", content: "Org details, members and season standing on Bearings." },
+      { name: "description", content: "Org details, members and semester standing on Bearings." },
       { property: "og:title", content: "Org — Bearings" },
-      { property: "og:description", content: "Org details, members and season standing on Bearings." },
+      { property: "og:description", content: "Org details, members and semester standing on Bearings." },
     ],
   }),
   component: OrgPage,
@@ -80,7 +80,7 @@ function OrgPage() {
           </div>
           {standing && !standing.qualified && (
             <p className="text-xs text-muted-foreground">
-              Not yet qualified — needs 5 members on its season team ({standing.team_size}/5).
+              Not yet qualified — needs 5 members on its semester team ({standing.team_size}/5).
             </p>
           )}
           {membership?.role === "leader" && membership.status === "approved" ? (

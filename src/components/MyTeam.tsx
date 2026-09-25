@@ -49,7 +49,7 @@ export function MyTeam() {
     <section className="mt-8 space-y-3">
       <h2 className="font-display text-lg font-bold">My Team</h2>
       {!season ? (
-        <p className="surface-card p-4 text-sm text-muted-foreground">No active season.</p>
+        <p className="surface-card p-4 text-sm text-muted-foreground">No active semester.</p>
       ) : (
         <div className="surface-card space-y-3 p-4">
           <p className="text-sm font-semibold">{season.name}</p>

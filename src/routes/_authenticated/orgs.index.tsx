@@ -14,9 +14,9 @@ export const Route = createFileRoute("/_authenticated/orgs/")({
   head: () => ({
     meta: [
       { title: "Student Orgs — Bearings" },
-      { name: "description", content: "Find Berkeley student organizations competing this season." },
+      { name: "description", content: "Find Berkeley student organizations competing this semester." },
       { property: "og:title", content: "Student Orgs — Bearings" },
-      { property: "og:description", content: "Find Berkeley student organizations competing this season." },
+      { property: "og:description", content: "Find Berkeley student organizations competing this semester." },
     ],
   }),
   component: OrgsPage,
