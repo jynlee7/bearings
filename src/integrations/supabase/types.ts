@@ -168,7 +168,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      default_avatar_config: { Args: never; Returns: Json }
+      [_ in never]: never
     }
     Enums: {
       app_role: "student" | "visitor"
