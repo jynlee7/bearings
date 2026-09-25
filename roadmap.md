@@ -1,3 +1,3 @@
 - [x] Semester competition feature
 - [x] Rename season -> semester in all visible text
-- [ ] Admin account (blocked: need a real email from user)
+- [x] Admin account (playbearings@gmail.com added to admin list)
