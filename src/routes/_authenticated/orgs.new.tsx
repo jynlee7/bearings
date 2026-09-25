@@ -48,7 +48,7 @@ function NewOrgPage() {
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
-    if (name.trim().length < 3) return toast.error("Name must be at least 3 characters.");
+    if (name.trim().length < 3) { toast.error("Name must be at least 3 characters."); return; }
     setBusy(true);
     const uid = await currentUserId();
     const { error } = await supabase.from("organizations").insert({
@@ -60,7 +60,7 @@ function NewOrgPage() {
       status: "pending",
     });
     setBusy(false);
-    if (error) return toast.error(error.message.includes("duplicate") ? "That name is taken." : error.message);
+    if (error) { toast.error(error.message.includes("duplicate") ? "That name is taken." : error.message); return; }
     toast.success("Submitted! An admin will review your org.");
     qc.invalidateQueries();
     navigate({ to: "/profile" });

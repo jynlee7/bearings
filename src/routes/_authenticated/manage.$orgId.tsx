@@ -50,12 +50,12 @@ function ManagePage() {
 
   async function update(id: string, patch: { status?: "approved"; role?: "leader" }) {
     const { error } = await supabase.from("org_memberships").update(patch).eq("id", id);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     refresh();
   }
   async function reject(id: string) {
     const { error } = await supabase.from("org_memberships").delete().eq("id", id);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     refresh();
   }
 

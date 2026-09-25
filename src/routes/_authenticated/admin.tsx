@@ -61,13 +61,13 @@ function AdminPage() {
     const { error } = approve
       ? await supabase.from("organizations").update({ status: "approved" }).eq("id", id)
       : await supabase.from("organizations").delete().eq("id", id);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     refresh();
   }
 
   async function createSeason(e: React.FormEvent) {
     e.preventDefault();
-    if (!form.name.trim()) return toast.error("Give the semester a name.");
+    if (!form.name.trim()) { toast.error("Give the semester a name."); return; }
     const iso = (v: string) => new Date(v).toISOString();
     const { error } = await supabase.from("seasons").insert({
       name: form.name.trim(),
@@ -77,7 +77,7 @@ function AdminPage() {
       leaderboard_freeze_at: iso(form.leaderboard_freeze_at),
       is_active: false,
     });
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success("Semester created.");
     setForm({ ...form, name: "" });
     refresh();
@@ -86,12 +86,12 @@ function AdminPage() {
   async function activate(id: string) {
     await supabase.from("seasons").update({ is_active: false }).eq("is_active", true);
     const { error } = await supabase.from("seasons").update({ is_active: true }).eq("id", id);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     refresh();
   }
   async function deactivate(id: string) {
     const { error } = await supabase.from("seasons").update({ is_active: false }).eq("id", id);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     refresh();
   }
 

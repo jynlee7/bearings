@@ -55,7 +55,7 @@ function OrgPage() {
   async function requestJoin() {
     const uid = await currentUserId();
     const { error } = await supabase.from("org_memberships").insert({ org_id: orgId, user_id: uid!, role: "member", status: "pending" });
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success("Request sent to the org leaders.");
     qc.invalidateQueries({ queryKey: ["my-memberships"] });
   }

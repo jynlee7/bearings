@@ -39,7 +39,7 @@ export function MyTeam() {
     const { error } = team
       ? await supabase.from("season_teams").update({ org_id: orgId }).eq("id", team.id)
       : await supabase.from("season_teams").insert({ season_id: season.id, user_id: uid!, org_id: orgId });
-    if (error) return toast.error("Couldn't save your team.");
+    if (error) { toast.error("Couldn't save your team."); return; }
     toast.success("Team saved!");
     qc.invalidateQueries({ queryKey: ["my-team"] });
     qc.invalidateQueries({ queryKey: ["season-scores"] });

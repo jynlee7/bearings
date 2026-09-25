@@ -65,7 +65,7 @@ function LeaderboardPage() {
       {frozen && (
         <div className="surface-card flex items-center gap-3 p-4 text-sm font-semibold">
           <Snowflake className="size-5 shrink-0 text-primary" />
-          Leaderboard frozen — winners revealed at the end of the season!
+          Leaderboard frozen — winners revealed at the end of the semester!
           {isAdmin && <Badge variant="secondary" className="ml-auto shrink-0">Admin: live</Badge>}
         </div>
       )}
