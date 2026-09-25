@@ -1,3 +1,3 @@
-- [ ] Season competition feature
-- [ ] Rename season -> semester in all visible text
-- [ ] Admin account (blocked: need a real email)
+- [x] Semester competition feature
+- [x] Rename season -> semester in all visible text
+- [ ] Admin account (blocked: need a real email from user)
