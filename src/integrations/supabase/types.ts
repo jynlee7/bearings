@@ -14,16 +14,165 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      avatar_items: {
+        Row: {
+          id: string
+          name: string
+          required_level: number
+          slot: Database["public"]["Enums"]["avatar_slot"]
+          sort_order: number
+          svg_data: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          required_level?: number
+          slot: Database["public"]["Enums"]["avatar_slot"]
+          sort_order?: number
+          svg_data: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          required_level?: number
+          slot?: Database["public"]["Enums"]["avatar_slot"]
+          sort_order?: number
+          svg_data?: string
+        }
+        Relationships: []
+      }
+      checkins: {
+        Row: {
+          created_at: string
+          id: string
+          place_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          place_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          place_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "checkins_place_id_fkey"
+            columns: ["place_id"]
+            isOneToOne: false
+            referencedRelation: "places"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      places: {
+        Row: {
+          category: string
+          created_at: string
+          description: string
+          id: string
+          latitude: number
+          longitude: number
+          name: string
+          radius_meters: number
+          student_only: boolean
+          xp_value: number
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          description?: string
+          id?: string
+          latitude: number
+          longitude: number
+          name: string
+          radius_meters?: number
+          student_only?: boolean
+          xp_value?: number
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description?: string
+          id?: string
+          latitude?: number
+          longitude?: number
+          name?: string
+          radius_meters?: number
+          student_only?: boolean
+          xp_value?: number
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_config: Json
+          created_at: string
+          display_name: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+        }
+        Insert: {
+          avatar_config?: Json
+          created_at?: string
+          display_name?: string
+          id: string
+          role?: Database["public"]["Enums"]["app_role"]
+        }
+        Update: {
+          avatar_config?: Json
+          created_at?: string
+          display_name?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+        }
+        Relationships: []
+      }
+      xp_ledger: {
+        Row: {
+          amount: number
+          created_at: string
+          id: string
+          reason: string
+          source_id: string | null
+          source_type: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          id?: string
+          reason: string
+          source_id?: string | null
+          source_type?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          id?: string
+          reason?: string
+          source_id?: string | null
+          source_type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      is_student: { Args: { _user_id: string }; Returns: boolean }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "student" | "visitor"
+      avatar_slot: "body" | "hair" | "outfit" | "accessory" | "background"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +299,9 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["student", "visitor"],
+      avatar_slot: ["body", "hair", "outfit", "accessory", "background"],
+    },
   },
 } as const
