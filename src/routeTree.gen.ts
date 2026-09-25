@@ -12,9 +12,15 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedAvatarRouteImport } from './routes/_authenticated/avatar'
+import { Route as AuthenticatedLeaderboardRouteImport } from './routes/_authenticated/leaderboard'
 import { Route as AuthenticatedMapRouteImport } from './routes/_authenticated/map'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
+import { Route as AuthenticatedManageOrgIdRouteImport } from './routes/_authenticated/manage.$orgId'
+import { Route as AuthenticatedOrgsIndexRouteImport } from './routes/_authenticated/orgs.index'
+import { Route as AuthenticatedOrgsOrgIdRouteImport } from './routes/_authenticated/orgs.$orgId'
+import { Route as AuthenticatedOrgsNewRouteImport } from './routes/_authenticated/orgs.new'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -30,11 +36,22 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedAvatarRoute = AuthenticatedAvatarRouteImport.update({
   id: '/avatar',
   path: '/avatar',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedLeaderboardRoute =
+  AuthenticatedLeaderboardRouteImport.update({
+    id: '/leaderboard',
+    path: '/leaderboard',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedMapRoute = AuthenticatedMapRouteImport.update({
   id: '/map',
   path: '/map',
@@ -45,43 +62,110 @@ const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedManageOrgIdRoute =
+  AuthenticatedManageOrgIdRouteImport.update({
+    id: '/manage/$orgId',
+    path: '/manage/$orgId',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedOrgsIndexRoute = AuthenticatedOrgsIndexRouteImport.update({
+  id: '/orgs/',
+  path: '/orgs/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedOrgsOrgIdRoute = AuthenticatedOrgsOrgIdRouteImport.update({
+  id: '/orgs/$orgId',
+  path: '/orgs/$orgId',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedOrgsNewRoute = AuthenticatedOrgsNewRouteImport.update({
+  id: '/orgs/new',
+  path: '/orgs/new',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/admin': typeof AuthenticatedAdminRoute
   '/avatar': typeof AuthenticatedAvatarRoute
+  '/leaderboard': typeof AuthenticatedLeaderboardRoute
   '/map': typeof AuthenticatedMapRoute
   '/profile': typeof AuthenticatedProfileRoute
+  '/manage/$orgId': typeof AuthenticatedManageOrgIdRoute
+  '/orgs/$orgId': typeof AuthenticatedOrgsOrgIdRoute
+  '/orgs/new': typeof AuthenticatedOrgsNewRoute
+  '/orgs/': typeof AuthenticatedOrgsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/admin': typeof AuthenticatedAdminRoute
   '/avatar': typeof AuthenticatedAvatarRoute
+  '/leaderboard': typeof AuthenticatedLeaderboardRoute
   '/map': typeof AuthenticatedMapRoute
   '/profile': typeof AuthenticatedProfileRoute
+  '/manage/$orgId': typeof AuthenticatedManageOrgIdRoute
+  '/orgs/$orgId': typeof AuthenticatedOrgsOrgIdRoute
+  '/orgs/new': typeof AuthenticatedOrgsNewRoute
+  '/orgs': typeof AuthenticatedOrgsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/_authenticated/avatar': typeof AuthenticatedAvatarRoute
+  '/_authenticated/leaderboard': typeof AuthenticatedLeaderboardRoute
   '/_authenticated/map': typeof AuthenticatedMapRoute
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
+  '/_authenticated/manage/$orgId': typeof AuthenticatedManageOrgIdRoute
+  '/_authenticated/orgs/$orgId': typeof AuthenticatedOrgsOrgIdRoute
+  '/_authenticated/orgs/new': typeof AuthenticatedOrgsNewRoute
+  '/_authenticated/orgs/': typeof AuthenticatedOrgsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/avatar' | '/map' | '/profile'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/admin'
+    | '/avatar'
+    | '/leaderboard'
+    | '/map'
+    | '/profile'
+    | '/manage/$orgId'
+    | '/orgs/$orgId'
+    | '/orgs/new'
+    | '/orgs/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/avatar' | '/map' | '/profile'
+  to:
+    | '/'
+    | '/auth'
+    | '/admin'
+    | '/avatar'
+    | '/leaderboard'
+    | '/map'
+    | '/profile'
+    | '/manage/$orgId'
+    | '/orgs/$orgId'
+    | '/orgs/new'
+    | '/orgs'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/auth'
+    | '/_authenticated/admin'
     | '/_authenticated/avatar'
+    | '/_authenticated/leaderboard'
     | '/_authenticated/map'
     | '/_authenticated/profile'
+    | '/_authenticated/manage/$orgId'
+    | '/_authenticated/orgs/$orgId'
+    | '/_authenticated/orgs/new'
+    | '/_authenticated/orgs/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -113,11 +197,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/avatar': {
       id: '/_authenticated/avatar'
       path: '/avatar'
       fullPath: '/avatar'
       preLoaderRoute: typeof AuthenticatedAvatarRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/leaderboard': {
+      id: '/_authenticated/leaderboard'
+      path: '/leaderboard'
+      fullPath: '/leaderboard'
+      preLoaderRoute: typeof AuthenticatedLeaderboardRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/map': {
@@ -134,19 +232,59 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedProfileRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/manage/$orgId': {
+      id: '/_authenticated/manage/$orgId'
+      path: '/manage/$orgId'
+      fullPath: '/manage/$orgId'
+      preLoaderRoute: typeof AuthenticatedManageOrgIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/orgs/': {
+      id: '/_authenticated/orgs/'
+      path: '/orgs'
+      fullPath: '/orgs/'
+      preLoaderRoute: typeof AuthenticatedOrgsIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/orgs/$orgId': {
+      id: '/_authenticated/orgs/$orgId'
+      path: '/orgs/$orgId'
+      fullPath: '/orgs/$orgId'
+      preLoaderRoute: typeof AuthenticatedOrgsOrgIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/orgs/new': {
+      id: '/_authenticated/orgs/new'
+      path: '/orgs/new'
+      fullPath: '/orgs/new'
+      preLoaderRoute: typeof AuthenticatedOrgsNewRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
   AuthenticatedAvatarRoute: typeof AuthenticatedAvatarRoute
+  AuthenticatedLeaderboardRoute: typeof AuthenticatedLeaderboardRoute
   AuthenticatedMapRoute: typeof AuthenticatedMapRoute
   AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
+  AuthenticatedManageOrgIdRoute: typeof AuthenticatedManageOrgIdRoute
+  AuthenticatedOrgsOrgIdRoute: typeof AuthenticatedOrgsOrgIdRoute
+  AuthenticatedOrgsNewRoute: typeof AuthenticatedOrgsNewRoute
+  AuthenticatedOrgsIndexRoute: typeof AuthenticatedOrgsIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
   AuthenticatedAvatarRoute: AuthenticatedAvatarRoute,
+  AuthenticatedLeaderboardRoute: AuthenticatedLeaderboardRoute,
   AuthenticatedMapRoute: AuthenticatedMapRoute,
   AuthenticatedProfileRoute: AuthenticatedProfileRoute,
+  AuthenticatedManageOrgIdRoute: AuthenticatedManageOrgIdRoute,
+  AuthenticatedOrgsOrgIdRoute: AuthenticatedOrgsOrgIdRoute,
+  AuthenticatedOrgsNewRoute: AuthenticatedOrgsNewRoute,
+  AuthenticatedOrgsIndexRoute: AuthenticatedOrgsIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
