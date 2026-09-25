@@ -70,6 +70,74 @@ export type Database = {
           },
         ]
       }
+      org_memberships: {
+        Row: {
+          created_at: string
+          id: string
+          org_id: string
+          role: Database["public"]["Enums"]["membership_role"]
+          status: Database["public"]["Enums"]["membership_status"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          org_id: string
+          role?: Database["public"]["Enums"]["membership_role"]
+          status?: Database["public"]["Enums"]["membership_status"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          org_id?: string
+          role?: Database["public"]["Enums"]["membership_role"]
+          status?: Database["public"]["Enums"]["membership_status"]
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "org_memberships_org_id_fkey"
+            columns: ["org_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      organizations: {
+        Row: {
+          category: Database["public"]["Enums"]["org_category"]
+          created_at: string
+          created_by: string | null
+          description: string
+          id: string
+          logo_svg: string
+          name: string
+          status: Database["public"]["Enums"]["org_status"]
+        }
+        Insert: {
+          category?: Database["public"]["Enums"]["org_category"]
+          created_at?: string
+          created_by?: string | null
+          description?: string
+          id?: string
+          logo_svg?: string
+          name: string
+          status?: Database["public"]["Enums"]["org_status"]
+        }
+        Update: {
+          category?: Database["public"]["Enums"]["org_category"]
+          created_at?: string
+          created_by?: string | null
+          description?: string
+          id?: string
+          logo_svg?: string
+          name?: string
+          status?: Database["public"]["Enums"]["org_status"]
+        }
+        Relationships: []
+      }
       places: {
         Row: {
           category: string
@@ -133,46 +201,175 @@ export type Database = {
         }
         Relationships: []
       }
+      season_teams: {
+        Row: {
+          created_at: string
+          id: string
+          org_id: string
+          season_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          org_id: string
+          season_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          org_id?: string
+          season_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "season_teams_org_id_fkey"
+            columns: ["org_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "season_teams_season_id_fkey"
+            columns: ["season_id"]
+            isOneToOne: false
+            referencedRelation: "seasons"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      seasons: {
+        Row: {
+          created_at: string
+          ends_at: string
+          id: string
+          is_active: boolean
+          leaderboard_freeze_at: string
+          name: string
+          starts_at: string
+          team_lock_at: string
+        }
+        Insert: {
+          created_at?: string
+          ends_at: string
+          id?: string
+          is_active?: boolean
+          leaderboard_freeze_at: string
+          name: string
+          starts_at: string
+          team_lock_at: string
+        }
+        Update: {
+          created_at?: string
+          ends_at?: string
+          id?: string
+          is_active?: boolean
+          leaderboard_freeze_at?: string
+          name?: string
+          starts_at?: string
+          team_lock_at?: string
+        }
+        Relationships: []
+      }
       xp_ledger: {
         Row: {
           amount: number
+          counts_for_competition: boolean
           created_at: string
           id: string
           reason: string
+          season_id: string | null
           source_id: string | null
           source_type: string
           user_id: string
         }
         Insert: {
           amount: number
+          counts_for_competition?: boolean
           created_at?: string
           id?: string
           reason: string
+          season_id?: string | null
           source_id?: string | null
           source_type?: string
           user_id: string
         }
         Update: {
           amount?: number
+          counts_for_competition?: boolean
           created_at?: string
           id?: string
           reason?: string
+          season_id?: string | null
           source_id?: string | null
           source_type?: string
           user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "xp_ledger_season_id_fkey"
+            columns: ["season_id"]
+            isOneToOne: false
+            referencedRelation: "seasons"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      am_i_admin: { Args: never; Returns: boolean }
+      org_members: {
+        Args: { p_org: string }
+        Returns: {
+          created_at: string
+          display_name: string
+          membership_id: string
+          role: Database["public"]["Enums"]["membership_role"]
+          status: Database["public"]["Enums"]["membership_status"]
+          user_id: string
+        }[]
+      }
+      org_top_contributors: {
+        Args: { p_org: string; p_season: string }
+        Returns: {
+          display_name: string
+          score: number
+          user_id: string
+        }[]
+      }
+      season_org_scores: {
+        Args: { p_season: string }
+        Returns: {
+          category: Database["public"]["Enums"]["org_category"]
+          logo_svg: string
+          member_count: number
+          name: string
+          org_id: string
+          qualified: boolean
+          rank: number
+          score: number
+          team_size: number
+        }[]
+      }
     }
     Enums: {
       app_role: "student" | "visitor"
       avatar_slot: "body" | "hair" | "outfit" | "accessory" | "background"
+      membership_role: "member" | "leader"
+      membership_status: "pending" | "approved"
+      org_category:
+        | "club"
+        | "fraternity"
+        | "sorority"
+        | "cultural"
+        | "sports"
+        | "other"
+      org_status: "pending" | "approved"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -302,6 +499,17 @@ export const Constants = {
     Enums: {
       app_role: ["student", "visitor"],
       avatar_slot: ["body", "hair", "outfit", "accessory", "background"],
+      membership_role: ["member", "leader"],
+      membership_status: ["pending", "approved"],
+      org_category: [
+        "club",
+        "fraternity",
+        "sorority",
+        "cultural",
+        "sports",
+        "other",
+      ],
+      org_status: ["pending", "approved"],
     },
   },
 } as const

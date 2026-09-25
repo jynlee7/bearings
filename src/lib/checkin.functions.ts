@@ -109,13 +109,54 @@ export const checkIn = createServerFn({ method: "POST" })
       .single();
     if (insertError) throw insertError;
 
-    const { error: ledgerError } = await supabaseAdmin.from("xp_ledger").insert({
+    // Season competition: cap competition XP at 150 per user per (Berkeley) day.
+    const nowIso = new Date().toISOString();
+    const { data: season } = await supabaseAdmin
+      .from("seasons")
+      .select("id")
+      .eq("is_active", true)
+      .lte("starts_at", nowIso)
+      .gt("ends_at", nowIso)
+      .maybeSingle();
+
+    const base = {
       user_id: userId,
-      amount: place.xp_value,
       reason: `Visited ${place.name}`,
       source_type: "checkin",
       source_id: inserted.id,
-    });
+    };
+    const rows: Array<typeof base & { amount: number; season_id: string | null; counts_for_competition: boolean }> = [];
+
+    if (season) {
+      const laDay = new Intl.DateTimeFormat("en-CA", {
+        timeZone: "America/Los_Angeles",
+      }).format(new Date());
+      const { data: todays } = await supabaseAdmin
+        .from("xp_ledger")
+        .select("amount, created_at")
+        .eq("user_id", userId)
+        .eq("season_id", season.id)
+        .eq("counts_for_competition", true)
+        .gte("created_at", new Date(Date.now() - 26 * 3600000).toISOString());
+      const usedToday = (todays ?? [])
+        .filter(
+          (r) =>
+            new Intl.DateTimeFormat("en-CA", { timeZone: "America/Los_Angeles" }).format(
+              new Date(r.created_at),
+            ) === laDay,
+        )
+        .reduce((s, r) => s + r.amount, 0);
+      const counted = Math.max(0, Math.min(place.xp_value, 150 - usedToday));
+      const extra = place.xp_value - counted;
+      if (counted > 0)
+        rows.push({ ...base, amount: counted, season_id: season.id, counts_for_competition: true });
+      if (extra > 0)
+        rows.push({ ...base, amount: extra, season_id: season.id, counts_for_competition: false });
+    } else {
+      rows.push({ ...base, amount: place.xp_value, season_id: null, counts_for_competition: false });
+    }
+
+    const { error: ledgerError } = await supabaseAdmin.from("xp_ledger").insert(rows);
     if (ledgerError) throw ledgerError;
 
     const { data: ledger, error: sumError } = await supabaseAdmin

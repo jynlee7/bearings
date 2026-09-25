@@ -63,6 +63,8 @@
 }
 
 :root {
+  --silver: oklch(0.85 0.01 250);
+  --bronze: oklch(0.72 0.1 55);
   --radius: 1rem;
   --background: oklch(0.977 0.018 88);
   --foreground: oklch(0.26 0.045 265);
