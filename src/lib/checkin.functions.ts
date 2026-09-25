@@ -87,9 +87,10 @@ export const checkIn = createServerFn({ method: "POST" })
       .limit(1);
 
     if (recentError) throw recentError;
-    if (recent && recent.length > 0) {
+    const lastVisit = recent?.[0];
+    if (lastVisit) {
       const next = new Date(
-        new Date(recent[0].created_at).getTime() + 24 * 60 * 60 * 1000,
+        new Date(lastVisit.created_at).getTime() + 24 * 60 * 60 * 1000,
       );
       const hours = Math.max(1, Math.ceil((next.getTime() - Date.now()) / 3600000));
       return {
