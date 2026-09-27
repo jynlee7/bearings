@@ -1,0 +1,134 @@
+.retro-system {
+  min-height: 100vh;
+  color: var(--retro-ink);
+  background: var(--retro-paper);
+  font-family: var(--retro-font-body);
+  line-height: 1.5;
+  position: relative;
+  isolation: isolate;
+}
+
+.retro-system *, .retro-system *::before, .retro-system *::after { box-sizing: border-box; }
+.retro-system button, .retro-system input { font: inherit; }
+.retro-system button { cursor: pointer; }
+.retro-system :is(button, a, input):focus-visible { outline: 3px solid var(--retro-focus); outline-offset: 3px; }
+.retro-preview__content { position: relative; z-index: 1; width: min(100%, 1440px); margin: 0 auto; }
+
+.retro-header { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 20px clamp(20px, 5vw, 76px); border-bottom: 2px solid var(--retro-border); background: var(--retro-paper); }
+.retro-brand { display: inline-flex; align-items: center; gap: 12px; font-family: var(--retro-font-pixel); font-size: clamp(17px, 2vw, 23px); font-weight: 700; line-height: 1; letter-spacing: -0.04em; white-space: nowrap; }
+.retro-brand__mark { display: grid; place-items: center; width: 40px; height: 40px; color: var(--retro-paper); background: var(--retro-ink); border: 2px solid var(--retro-border); box-shadow: 3px 3px 0 var(--retro-shadow); }
+.retro-brand__dot, .retro-section-heading h2 span { color: var(--retro-brick); }
+.retro-header__controls { display: flex; align-items: center; gap: 8px; }
+
+.retro-button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 42px; padding: 8px 14px; border: 2px solid var(--retro-border); border-radius: var(--retro-radius); box-shadow: 3px 3px 0 var(--retro-shadow); font-family: var(--retro-font-pixel); font-size: 12px; font-weight: 700; text-decoration: none; transition: transform 120ms ease, box-shadow 120ms ease; }
+.retro-button:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--retro-shadow); }
+.retro-button:active { transform: translate(3px, 3px); box-shadow: 0 0 0 var(--retro-shadow); }
+.retro-button:disabled { cursor: not-allowed; opacity: .55; box-shadow: none; transform: none; }
+.retro-button--gold { color: var(--retro-gold-ink); background: var(--retro-gold); }
+.retro-button--paper { color: var(--retro-ink); background: var(--retro-surface); }
+.retro-button--quiet { color: var(--retro-ink); background: transparent; box-shadow: none; }
+
+.retro-badge { display: inline-flex; align-items: center; justify-content: center; gap: 6px; width: fit-content; min-height: 24px; padding: 3px 8px; border: 2px solid var(--retro-border); border-radius: var(--retro-radius); color: var(--retro-ink); font-family: var(--retro-font-pixel); font-size: 10px; font-weight: 700; line-height: 1.2; text-transform: uppercase; white-space: nowrap; }
+.retro-badge--gold { background: var(--retro-gold); color: var(--retro-gold-ink); }
+.retro-badge--forest { background: var(--retro-forest); color: var(--retro-forest-ink); }
+.retro-badge--brick { background: var(--retro-brick); color: var(--retro-brick-ink); }
+.retro-badge--sky { background: var(--retro-sky); color: var(--retro-sky-ink); }
+.retro-badge--neutral { background: var(--retro-surface); }
+
+.retro-hero { padding: 36px clamp(20px, 5vw, 76px) 30px; }
+.retro-hero__copy { max-width: 740px; }
+.retro-hero h1 { max-width: 900px; margin: 14px 0 10px; font-family: var(--retro-font-pixel); font-size: clamp(38px, 4.6vw, 62px); line-height: 1.06; letter-spacing: -0.055em; }
+.retro-hero h1 em { color: var(--retro-brick); font-style: normal; }
+.retro-hero__copy > p { max-width: 520px; margin: 0; color: var(--retro-muted-ink); font-size: clamp(16px, 1.5vw, 19px); }
+.retro-hero__jump { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; margin-top: 12px; border-bottom: 2px solid var(--retro-border); color: var(--retro-ink); font-family: var(--retro-font-pixel); font-size: 13px; font-weight: 700; text-decoration: none; }
+.retro-hero__jump:hover { color: var(--retro-brick); }
+.retro-hero__progress { padding: 20px; border: 2px solid var(--retro-border); background: var(--retro-surface); box-shadow: 6px 6px 0 var(--retro-shadow); transform: rotate(1.5deg); }
+.retro-hero__progress-head, .retro-xp__copy { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-family: var(--retro-font-pixel); font-size: 11px; font-weight: 700; }
+.retro-hero__progress-number { display: flex; align-items: baseline; gap: 12px; margin: 12px 0; }
+.retro-hero__progress-number strong { font-family: var(--retro-font-pixel); font-size: 54px; line-height: 1; }
+.retro-hero__progress-number span { color: var(--retro-muted-ink); font-size: 13px; }
+.retro-hero__progress > p { margin: 12px 0 0; color: var(--retro-muted-ink); font-size: 12px; }
+.retro-field-notes { padding: 18px clamp(20px, 5vw, 76px) 52px; background: var(--retro-paper); }
+.retro-field-notes .retro-hero__progress { width: min(100%, 420px); transform: none; }
+.retro-xp__copy { margin-bottom: 9px; }
+.retro-xp__segments { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 4px; }
+.retro-xp__segments span { height: 16px; border: 2px solid var(--retro-border); background: var(--retro-paper); }
+.retro-xp__segments .is-filled { background: var(--retro-gold); }
+
+.retro-sightings-section { padding: 24px clamp(20px, 5vw, 76px) 36px; border-top: 2px solid var(--retro-border); background: var(--retro-paper); }
+.retro-section-heading { display: flex; justify-content: space-between; align-items: end; gap: 20px; margin-bottom: 12px; }
+.retro-eyebrow, .retro-section-heading__count { font-family: var(--retro-font-pixel); font-size: 11px; font-weight: 700; letter-spacing: .07em; }
+.retro-eyebrow { color: var(--retro-forest); }
+.retro-section-heading h2 { margin: 8px 0 4px; font-family: var(--retro-font-pixel); font-size: clamp(30px, 3.3vw, 46px); line-height: 1.15; letter-spacing: -0.04em; }
+.retro-section-heading p { margin: 0; color: var(--retro-muted-ink); font-size: 15px; }
+.retro-section-heading__count { flex: none; margin-bottom: 4px; padding: 7px 10px; border: 2px solid var(--retro-border); color: var(--retro-gold-ink); background: var(--retro-gold); }
+.retro-search { margin-bottom: 12px; }
+.retro-search__field { display: flex; align-items: center; gap: 10px; max-width: 560px; min-height: 52px; padding: 0 14px; border: 2px solid var(--retro-border); background: var(--retro-surface); box-shadow: 3px 3px 0 var(--retro-shadow); }
+.retro-search__field:focus-within { outline: 3px solid var(--retro-focus); outline-offset: 3px; }
+.retro-search__field input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; color: var(--retro-ink); font-size: 15px; }
+.retro-search__field input::placeholder { color: var(--retro-muted-ink); opacity: 1; }
+.retro-search__field input:focus-visible { outline: 0; }
+.retro-search__clear { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; color: var(--retro-ink); background: transparent; }
+.retro-search__filters { display: flex; gap: 8px; overflow-x: auto; padding: 14px 4px 6px 1px; scrollbar-width: thin; }
+.retro-filter { flex: none; min-height: 44px; padding: 7px 12px; border: 2px solid var(--retro-border); border-radius: var(--retro-radius); color: var(--retro-ink); background: var(--retro-surface); font-family: var(--retro-font-pixel); font-size: 11px; font-weight: 700; box-shadow: 2px 2px 0 var(--retro-shadow); }
+.retro-filter:hover { transform: translateY(-1px); }
+.retro-filter:active { transform: translate(2px, 2px); box-shadow: none; }
+.retro-filter.is-active { color: var(--retro-gold-ink); background: var(--retro-gold); }
+
+.retro-featured { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+.retro-sighting { min-width: 0; border: 2px solid var(--retro-border); background: var(--retro-surface); box-shadow: 5px 5px 0 var(--retro-shadow); }
+.retro-sighting__action { display: block; width: 100%; height: 100%; padding: 0; border: 0; color: inherit; background: transparent; text-align: left; }
+.retro-sighting button.retro-sighting__action:hover .retro-sighting__art { filter: brightness(1.08); }
+.retro-sighting button.retro-sighting__action:active { transform: translate(3px, 3px); }
+.retro-sighting__art { position: relative; display: grid; place-items: center; height: 145px; overflow: hidden; border-bottom: 2px solid var(--retro-border); color: var(--retro-ink); }
+.retro-sighting__art::before, .retro-sighting__art::after { position: absolute; content: ""; width: 170px; height: 100px; border: 2px solid currentColor; border-radius: 50%; opacity: .15; transform: rotate(-15deg); }
+.retro-sighting__art::before { left: -65px; bottom: -45px; }
+.retro-sighting__art::after { right: -70px; top: -40px; }
+.retro-sighting__art--gold { background: var(--retro-gold); color: var(--retro-gold-ink); }
+.retro-sighting__art--forest { background: var(--retro-forest); color: var(--retro-forest-ink); }
+.retro-sighting__art--brick { background: var(--retro-brick); color: var(--retro-brick-ink); }
+.retro-sighting__art--sky { background: var(--retro-sky); color: var(--retro-sky-ink); }
+.retro-sighting__default-art { font-family: var(--retro-font-pixel); font-size: 80px; }
+.retro-sighting__art-corner { position: absolute; right: 9px; bottom: 7px; font-family: var(--retro-font-pixel); font-size: 9px; font-weight: 700; }
+.retro-sighting__body { padding: 16px; }
+.retro-sighting__topline, .retro-sighting__footer, .retro-sighting__title-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.retro-sighting__xp { display: inline-flex; align-items: center; gap: 3px; flex: none; font-family: var(--retro-font-pixel); font-size: 10px; font-weight: 700; }
+.retro-sighting__title-row { margin: 14px 0 5px; }
+.retro-sighting__title-row h3 { margin: 0; font-family: var(--retro-font-pixel); font-size: 16px; line-height: 1.25; }
+.retro-sighting__title-row svg { flex: none; }
+.retro-sighting__description { min-height: 42px; margin: 0 0 16px; color: var(--retro-muted-ink); font-size: 13px; line-height: 1.4; }
+.retro-sighting__footer { padding-top: 11px; border-top: 2px dashed var(--retro-border); font-size: 12px; font-weight: 700; }
+.retro-sighting__footer span { display: inline-flex; align-items: center; gap: 4px; }
+.retro-sighting__visited { color: var(--retro-forest); }
+.retro-sighting__unvisited { color: var(--retro-muted-ink); }
+.retro-empty { padding: 30px; border: 2px dashed var(--retro-border); color: var(--retro-muted-ink); background: var(--retro-surface); }
+
+.retro-footer { display: flex; justify-content: space-between; gap: 15px; padding: 24px clamp(20px, 5vw, 76px); border-top: 2px solid var(--retro-border); color: var(--retro-paper); background: var(--retro-ink); font-family: var(--retro-font-pixel); font-size: 11px; }
+.retro-dialog-backdrop { position: fixed; z-index: 20; inset: 0; display: grid; place-items: center; padding: 20px; background: #0b1722c9; }
+.retro-dialog { position: relative; width: min(100%, 430px); padding: 28px; border: 2px solid var(--retro-border); color: var(--retro-ink); background: var(--retro-paper); box-shadow: 7px 7px 0 var(--retro-shadow); }
+.retro-dialog h2 { margin: 18px 0 8px; font-family: var(--retro-font-pixel); line-height: 1.2; }
+.retro-dialog p { color: var(--retro-muted-ink); }
+.retro-dialog__close { position: absolute; top: 12px; right: 12px; display: grid; place-items: center; width: 44px; height: 44px; border: 2px solid var(--retro-border); background: var(--retro-surface); }
+
+@media (max-width: 1150px) { .retro-featured { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 800px) { .retro-featured { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) {
+  .retro-header { padding-block: 15px; }
+  .retro-brand { gap: 8px; font-size: 16px; }
+  .retro-brand__mark { width: 34px; height: 34px; }
+  .retro-header__controls .retro-button { min-width: 44px; min-height: 44px; padding: 5px 7px; }
+  .retro-control-label { display: none; }
+  .retro-hero { padding-top: 24px; padding-bottom: 20px; }
+  .retro-hero h1 { font-size: 37px; }
+  .retro-hero__progress { padding: 14px; }
+  .retro-hero__progress-number { margin: 5px 0 8px; }
+  .retro-hero__progress-number strong { font-size: 36px; }
+  .retro-hero__progress > p { display: none; }
+  .retro-sightings-section { padding-top: 18px; }
+  .retro-section-heading { align-items: start; }
+  .retro-section-heading__count { margin-top: 4px; font-size: 9px; }
+  .retro-featured { display: flex; gap: 14px; overflow-x: auto; margin-right: -20px; padding: 3px 24px 12px 1px; scroll-snap-type: x mandatory; scrollbar-width: thin; }
+  .retro-sighting { flex: 0 0 min(78vw, 300px); scroll-snap-align: start; }
+  .retro-footer { font-size: 9px; }
+}
+@media (prefers-reduced-motion: reduce) { .retro-system *, .retro-system *::before, .retro-system *::after { scroll-behavior: auto !important; transition-duration: 0ms !important; animation-duration: 0ms !important; } }
