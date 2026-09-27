@@ -1,0 +1,132 @@
+@import url("https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap");
+
+.retro-system {
+  color-scheme: light;
+  --retro-paper: #f6f0de;
+  --retro-surface: #fffaf0;
+  --retro-raised: #ffffff;
+  --retro-ink: #19283b;
+  --retro-muted-ink: #455467;
+  --retro-gold: #f2c14d;
+  --retro-gold-ink: #19283b;
+  --retro-forest: #315b49;
+  --retro-forest-ink: #fffaf0;
+  --retro-brick: #93443a;
+  --retro-brick-ink: #fffaf0;
+  --retro-sky: #b9dce9;
+  --retro-sky-ink: #19283b;
+  --retro-border: #19283b;
+  --retro-focus: #315b49;
+  --retro-contour: #78918d;
+  --retro-shadow: #19283b;
+
+  --retro-font-body: "Nunito", "Trebuchet MS", Arial, sans-serif;
+  --retro-font-pixel: "Silkscreen", "Courier New", monospace;
+  --retro-text-xs: 0.75rem;
+  --retro-text-sm: 0.875rem;
+  --retro-text-base: 1rem;
+  --retro-text-lg: 1.25rem;
+  --retro-text-xl: 1.5rem;
+  --retro-text-display: clamp(1.75rem, 5vw, 3rem);
+  --retro-line-body: 1.5;
+  --retro-line-heading: 1.2;
+
+  --retro-space-1: 0.25rem;
+  --retro-space-2: 0.5rem;
+  --retro-space-3: 0.75rem;
+  --retro-space-4: 1rem;
+  --retro-space-5: 1.25rem;
+  --retro-space-6: 1.5rem;
+  --retro-space-8: 2rem;
+  --retro-space-12: 3rem;
+  --retro-radius: 0.25rem;
+  --retro-border-width: 2px;
+  --retro-shadow-offset: 4px;
+  --retro-duration-fast: 120ms;
+  --retro-duration-base: 200ms;
+  --retro-easing: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  font-family: var(--retro-font-body);
+  color: var(--retro-ink);
+  background: var(--retro-paper);
+}
+
+@media (prefers-color-scheme: dark) {
+  .retro-system:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+    --retro-paper: #132238;
+    --retro-surface: #20334b;
+    --retro-raised: #2a405a;
+    --retro-ink: #f7f0de;
+    --retro-muted-ink: #c4d0d6;
+    --retro-gold: #f2c14d;
+    --retro-gold-ink: #19283b;
+    --retro-forest: #a8c7a7;
+    --retro-forest-ink: #132238;
+    --retro-brick: #e8a18c;
+    --retro-brick-ink: #132238;
+    --retro-sky: #aed8e7;
+    --retro-sky-ink: #132238;
+    --retro-border: #f7f0de;
+    --retro-focus: #f2c14d;
+    --retro-contour: #607d88;
+    --retro-shadow: #071320;
+  }
+}
+
+.retro-system[data-theme="dark"] {
+  color-scheme: dark;
+  --retro-paper: #132238;
+  --retro-surface: #20334b;
+  --retro-raised: #2a405a;
+  --retro-ink: #f7f0de;
+  --retro-muted-ink: #c4d0d6;
+  --retro-gold: #f2c14d;
+  --retro-gold-ink: #19283b;
+  --retro-forest: #a8c7a7;
+  --retro-forest-ink: #132238;
+  --retro-brick: #e8a18c;
+  --retro-brick-ink: #132238;
+  --retro-sky: #aed8e7;
+  --retro-sky-ink: #132238;
+  --retro-border: #f7f0de;
+  --retro-focus: #f2c14d;
+  --retro-contour: #607d88;
+  --retro-shadow: #071320;
+}
+
+.retro-system[data-theme="light"] {
+  color-scheme: light;
+  --retro-paper: #f6f0de;
+  --retro-surface: #fffaf0;
+  --retro-raised: #ffffff;
+  --retro-ink: #19283b;
+  --retro-muted-ink: #455467;
+  --retro-gold: #f2c14d;
+  --retro-gold-ink: #19283b;
+  --retro-forest: #315b49;
+  --retro-forest-ink: #fffaf0;
+  --retro-brick: #93443a;
+  --retro-brick-ink: #fffaf0;
+  --retro-sky: #b9dce9;
+  --retro-sky-ink: #19283b;
+  --retro-border: #19283b;
+  --retro-focus: #315b49;
+  --retro-contour: #78918d;
+  --retro-shadow: #19283b;
+}
+
+.retro-system :focus-visible {
+  outline: 3px solid var(--retro-focus);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .retro-system *,
+  .retro-system *::before,
+  .retro-system *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
